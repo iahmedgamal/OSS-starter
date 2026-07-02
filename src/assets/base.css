@@ -1,9 +1,9 @@
 :root {
-  --color-primary: #424B54;
-  --color-background: #B38D97;
+  --color-primary: #424b54;
+  --color-background: #b38d97;
   --color-text: white;
 }
-  
+
 /* to solve padding and margin for elements */
 *,
 *::before,
@@ -12,7 +12,6 @@
   margin: 0;
   font-weight: normal;
 }
-
 
 body {
   min-height: 100vh;

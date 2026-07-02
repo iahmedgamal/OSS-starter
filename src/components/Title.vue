@@ -1,15 +1,19 @@
 <script setup lang="ts">
-withDefaults(defineProps<{
-  msg: string
-}>(), {
-  msg: ''
-})
+withDefaults(
+  defineProps<{
+    msg: string
+  }>(),
+  {
+    msg: '',
+  },
+)
 </script>
 
 <template>
-  <div class="title">
+  <RouterLink to="/">
     <h1>{{ msg }}</h1>
-  </div>
+  </RouterLink>
+  <div class="title"></div>
 </template>
 
 <style scoped>
