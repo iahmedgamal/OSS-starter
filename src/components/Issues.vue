@@ -1,16 +1,33 @@
 <script setup lang="ts">
-
 import { useQuery } from '@tanstack/vue-query'
+import Labels from './Labels.vue'
 
-const { data, isLoading, error } = useQuery({
+interface Label {
+  id: number
+  name: string
+  color: string
+  description: string | null
+}
+
+interface Issue {
+  id: number
+  title: string
+  html_url: string
+  labels: Label[]
+  user: {
+    login: string
+    avatar_url: string
+  }
+}
+
+const { data, isLoading, error } = useQuery<Issue[]>({
   queryKey: ['good-first-issues'],
   queryFn: () =>
-    fetch('https://api.github.com/search/issues?q=is:issue+is:open+label:"good+first+issue"').then(
-      (r) => r.json(),
-    ).then((data) => data.items),
+    fetch('https://api.github.com/search/issues?q=is:issue+is:open+label:"good+first+issue"')
+      .then((r) => r.json())
+      .then((data) => data.items),
   staleTime: 1000 * 60 * 5, // 5 min cache
 })
-
 </script>
 
 <template>
@@ -18,23 +35,13 @@ const { data, isLoading, error } = useQuery({
   <div v-if="error">{{ error }}</div>
 
   <div class="item-container" v-for="item in data">
-    
     <div class="item">
       <a :href="`${item.html_url}`"> link </a>
-      <span> {{ item.title }}
-      </span>
+      <span> {{ item.title }} </span>
       <img :src="`${item.user.avatar_url}`" />
     </div>
 
-    <div class="labels">
-      <div v-for="label in item.labels">
-        <div class="label" :style="{backgroundColor:`#${label.color}` }">
-          <span>{{ label.name }}</span>
-        </div>
-      </div>
-    </div>
-
-
+    <Labels :labels="item.labels" />
   </div>
 </template>
 
@@ -51,10 +58,9 @@ const { data, isLoading, error } = useQuery({
 .item {
   display: flex;
   justify-content: space-between;
-
 }
 
-.item:hover {
+.item-container:hover {
   background-color: var(--color-background);
   color: white;
   cursor: pointer;
@@ -66,18 +72,5 @@ img {
   width: 30px;
   height: 30px;
   border-radius: 15px;
-}
-
-.labels {
-  display: flex;
-  flex-direction: row;
-  gap: 10px;
-}
-
-.label {
-  /* border: 1px solid white; */
-  border-radius: 10px;
-  padding: 5px;
-
 }
 </style>
