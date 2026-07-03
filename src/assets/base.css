@@ -1,7 +1,9 @@
 :root {
-  --color-primary: #424b54;
-  --color-background: #b38d97;
-  --color-text: white;
+  --color-primary: #0d1f1f;
+  --color-background: #080f0f;
+  --color-text: #e0f7f6;
+  --color-accent: #00aba9;
+  --color-accent-glow: rgba(0, 171, 169, 0.4);
 }
 
 /* to solve padding and margin for elements */

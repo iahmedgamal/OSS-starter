@@ -39,5 +39,27 @@ header {
 
 nav {
   margin-right: 10px;
+  display: flex;
+  gap: 8px;
+}
+
+nav a {
+  padding: 6px 14px;
+  border-radius: 8px;
+  border: 2px solid transparent;
+  text-decoration: none;
+  color: var(--color-text);
+  transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+nav a:hover {
+  border-color: var(--color-accent);
+  box-shadow: 0 0 16px var(--color-accent-glow);
+}
+
+nav a.router-link-exact-active {
+  border-color: transparent;
+  border-left-color: var(--color-accent);
+  box-shadow: none;
 }
 </style>

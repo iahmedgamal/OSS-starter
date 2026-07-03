@@ -21,14 +21,28 @@ defineProps<{
 
 <style>
 .labels {
+  position: relative;
+  z-index: 1;
   display: flex;
   flex-direction: row;
-  gap: 10px;
+  flex-wrap: wrap;
+  gap: 6px;
 }
 
 .label {
-  /* border: 1px solid white; */
   border-radius: 10px;
-  padding: 5px;
+  padding: 3px 6px;
+  font-size: 0.75rem;
+}
+
+@media (min-width: 480px) {
+  .labels {
+    gap: 10px;
+  }
+
+  .label {
+    padding: 5px 8px;
+    font-size: 0.875rem;
+  }
 }
 </style>

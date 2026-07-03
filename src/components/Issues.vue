@@ -47,25 +47,27 @@ const { data, isLoading, error } = useQuery<Issue[]>({
 
 <style>
 .item-container {
+  position: relative;
   display: flex;
   flex-direction: column;
   background-color: var(--color-primary);
   padding: 10px;
   margin: 10px;
   border-radius: 20px;
+  cursor: pointer;
+  border: 2px solid transparent;
+  border-left: 4px solid var(--color-accent);
+  transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.item-container:hover {
+  border-color: var(--color-accent);
+  box-shadow: 0 0 16px var(--color-accent-glow);
 }
 
 .item {
   display: flex;
   justify-content: space-between;
-}
-
-.item-container:hover {
-  background-color: var(--color-background);
-  color: white;
-  cursor: pointer;
-  border: 1px solid white;
-  scale: 1.02;
 }
 
 img {

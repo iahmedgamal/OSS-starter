@@ -7,13 +7,3 @@ a {
   padding: 3px;
 }
 
-@media (hover: hover) {
-  nav a:hover {
-    color: var(--color-text);
-    background-color: var(--color-background);
-    border-radius: 30px;
-    padding: 10px;
-    transition: 0.5s;
-    scale: 1.2;
-  }
-}
