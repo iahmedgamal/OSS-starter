@@ -6,14 +6,23 @@ interface Label {
   description: string | null
 }
 
+import { getReadableTextColor } from '@/utils/color'
+
 defineProps<{
   labels: Label[]
 }>()
+
+function getLabelStyle(hex: string) {
+  return {
+    backgroundColor: `#${hex}`,
+    color: getReadableTextColor(hex) === 'light' ? 'var(--color-primary)' : 'var(--color-text)',
+  }
+}
 </script>
 
 <template>
   <div class="labels">
-    <div v-for="label in labels" class="label" :style="{ backgroundColor: `#${label.color}` }">
+    <div v-for="label in labels" class="label" :style="getLabelStyle(label.color)">
       <span>{{ label.name }}</span>
     </div>
   </div>

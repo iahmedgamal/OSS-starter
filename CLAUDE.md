@@ -80,3 +80,18 @@ this is not acceptable at all, all the colors should be updated in the @/src/ass
   color: var(--color-accent); -- correct
 }
 ```
+
+## Unit tests styles
+
+```ts
+it('returns light for light background colors', () => {
+  // Arrange
+  const lightHex = 'ffffff'
+
+  // Act
+  const result = getReadableTextColor(lightHex)
+
+  // Assert
+  expect(result).toBe('light')
+})
+```
