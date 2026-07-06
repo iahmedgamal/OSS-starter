@@ -1,31 +1,17 @@
 <script setup lang="ts">
 import { useQuery } from '@tanstack/vue-query'
 import Labels from './Labels.vue'
+import { useRouter } from 'vue-router'
+import type { IssuesResponse } from '@/types/types.ts'
 
-interface Label {
-  id: number
-  name: string
-  color: string
-  description: string | null
-}
 
-interface Issue {
-  id: number
-  title: string
-  html_url: string
-  labels: Label[]
-  user: {
-    login: string
-    avatar_url: string
-  }
-}
 
-const { data, isLoading, error } = useQuery<Issue[]>({
+const router = useRouter()
+const { data, isLoading, error } = useQuery<IssuesResponse>({
   queryKey: ['good-first-issues'],
   queryFn: () =>
-    fetch('https://api.github.com/search/issues?q=is:issue+is:open+label:"good+first+issue"')
-      .then((r) => r.json())
-      .then((data) => data.items),
+    fetch('https://api.github.com/search/issues?q=is:issue+is:open+label:"good+first+issue"+no:assignee&sort=created&order=desc&per_page=100')
+      .then((r) => r.json()),
   staleTime: 1000 * 60 * 5, // 5 min cache
 })
 </script>
@@ -34,9 +20,10 @@ const { data, isLoading, error } = useQuery<Issue[]>({
   <div v-if="isLoading">Loading ...</div>
   <div v-if="error">{{ error }}</div>
 
-  <div class="item-container" v-for="item in data">
-    <div class="item">
-      <a :href="`${item.html_url}`"> link </a>
+  <p v-if="data" class="total">{{ data.total_count.toLocaleString() }} good first issues available</p>
+
+  <div class="item-container" v-for="item in data?.items" :key="item.id">
+    <div class="item" @click="router.push({path: `/issue/${item.id}` , state: {issue: JSON.parse(JSON.stringify(item))}})">
       <span> {{ item.title }} </span>
       <img :src="`${item.user.avatar_url}`" />
     </div>
@@ -46,6 +33,13 @@ const { data, isLoading, error } = useQuery<Issue[]>({
 </template>
 
 <style>
+.total {
+  text-align: center;
+  color: var(--color-accent);
+  font-size: 0.85rem;
+  margin: 8px 0;
+}
+
 .item-container {
   position: relative;
   display: flex;

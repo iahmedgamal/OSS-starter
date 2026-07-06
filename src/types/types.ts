@@ -1,95 +1,26 @@
-// {
-//   "url": "https://api.github.com/repos/rajgandhi1/threecrate/issues/180",
-//   "repository_url": "https://api.github.com/repos/rajgandhi1/threecrate",
-//   "labels_url": "https://api.github.com/repos/rajgandhi1/threecrate/issues/180/labels{/name}",
-//   "comments_url": "https://api.github.com/repos/rajgandhi1/threecrate/issues/180/comments",
-//   "events_url": "https://api.github.com/repos/rajgandhi1/threecrate/issues/180/events",
-//   "html_url": "https://github.com/rajgandhi1/threecrate/issues/180",
-//   "id": 4796203588,
-//   "node_id": "I_kwDOO-RKiM8AAAABHeBCRA",
-//   "number": 180,
-//   "title": "Add a realistic ICP target + accuracy comparison to the benchmark",
-//   "user": {
-//     "login": "rajgandhi1",
-//     "id": 95954374,
-//     "node_id": "U_kgDOBbglxg",
-//     "avatar_url": "https://avatars.githubusercontent.com/u/95954374?v=4",
-//     "gravatar_id": "",
-//     "url": "https://api.github.com/users/rajgandhi1",
-//     "html_url": "https://github.com/rajgandhi1",
-//     "followers_url": "https://api.github.com/users/rajgandhi1/followers",
-//     "following_url": "https://api.github.com/users/rajgandhi1/following{/other_user}",
-//     "gists_url": "https://api.github.com/users/rajgandhi1/gists{/gist_id}",
-//     "starred_url": "https://api.github.com/users/rajgandhi1/starred{/owner}{/repo}",
-//     "subscriptions_url": "https://api.github.com/users/rajgandhi1/subscriptions",
-//     "organizations_url": "https://api.github.com/users/rajgandhi1/orgs",
-//     "repos_url": "https://api.github.com/users/rajgandhi1/repos",
-//     "events_url": "https://api.github.com/users/rajgandhi1/events{/privacy}",
-//     "received_events_url": "https://api.github.com/users/rajgandhi1/received_events",
-//     "type": "User",
-//     "user_view_type": "public",
-//     "site_admin": false
-//   },
-//   "labels": [
-//     {
-//       "id": 8806905134,
-//       "node_id": "LA_kwDOO-RKiM8AAAACDO61Lg",
-//       "url": "https://api.github.com/repos/rajgandhi1/threecrate/labels/good%20first%20issue",
-//       "name": "good first issue",
-//       "color": "7057ff",
-//       "default": true,
-//       "description": "Good for newcomers"
-//     },
-//     {
-//       "id": 11400140742,
-//       "node_id": "LA_kwDOO-RKiM8AAAACp4BXxg",
-//       "url": "https://api.github.com/repos/rajgandhi1/threecrate/labels/benchmarks",
-//       "name": "benchmarks",
-//       "color": "fbca04",
-//       "default": false,
-//       "description": "Cross-library benchmarking and performance measurement"
-//     }
-//   ],
-//   "state": "open",
-//   "locked": false,
-//   "assignees": [
+export interface Label {
+  id: number
+  name: string
+  description: string | null
+  color: string
+}
 
-//   ],
-//   "milestone": null,
-//   "comments": 0,
-//   "created_at": "2026-07-02T16:09:54Z",
-//   "updated_at": "2026-07-02T16:09:54Z",
-//   "closed_at": null,
-//   "assignee": null,
-//   "author_association": "OWNER",
-//   "active_lock_reason": null,
-//   "sub_issues_summary": {
-//     "total": 0,
-//     "completed": 0,
-//     "percent_completed": 0
-//   },
-//   "issue_dependencies_summary": {
-//     "blocked_by": 0,
-//     "total_blocked_by": 0,
-//     "blocking": 0,
-//     "total_blocking": 0
-//   },
-//   "body": "The ICP benchmark currently registers the source against a **synthetic near-identity transform** (translation (0.05, -0.02, 0.01), 0.02 rad about z). That measures **per-iteration speed only** — it does not test registration robustness or accuracy.\n\n### The task\n- Add a realistic target (e.g. a genuinely offset/rotated frame, or the next frame in a sequence).\n- Report **convergence** and **final alignment error**, not just wall-clock time, alongside Open3D.\n\nThis makes the benchmark a fair accuracy comparison, not just a speed one. See the \"Method notes\" caveat in [docs/benchmarks.md](../blob/main/docs/benchmarks.md).",
-//   "reactions": {
-//     "url": "https://api.github.com/repos/rajgandhi1/threecrate/issues/180/reactions",
-//     "total_count": 0,
-//     "+1": 0,
-//     "-1": 0,
-//     "laugh": 0,
-//     "hooray": 0,
-//     "confused": 0,
-//     "heart": 0,
-//     "rocket": 0,
-//     "eyes": 0
-//   },
-//   "timeline_url": "https://api.github.com/repos/rajgandhi1/threecrate/issues/180/timeline",
-//   "performed_via_github_app": null,
-//   "state_reason": null,
-//   "pinned_comment": null,
-//   "score": 1.0
-// },
+export interface Issue {
+  id: number
+  title: string
+  html_url: string
+  labels: Label[]
+  user: {
+    login: string
+    avatar_url: string
+  },
+  body: string
+}
+
+export interface IssuesResponse {
+  total_count: number
+  items: Issue[]
+}
+
+
+

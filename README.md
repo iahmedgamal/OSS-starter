@@ -3,10 +3,12 @@ A Vue app that helps beginner devs find their first open-source contribution.
 
 ## MVP features
 - [x] Show good first issues in one place
-- [ ] Show number of open issues
+- [x] Show total count of available issues
+- [ ] Pagination / load more
 - [ ] Search GitHub repositories
 - [ ] Filter by language
 - [ ] Filter by difficulty
+- [ ] Repo detail page (open issues count, last activity, language, stars)
 - [ ] Show last activity
 - [ ] Check if they are merging PRs
 - [ ] Check if they are active
