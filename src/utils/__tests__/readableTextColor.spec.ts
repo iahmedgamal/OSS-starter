@@ -1,5 +1,5 @@
 import { describe, it, expect } from 'vitest'
-import { getReadableTextColor } from '../color'
+import { getReadableTextColor } from '../readableTextColor'
 
 describe('getReadableTextColor', () => {
   it('returns light for white background', () => {

@@ -6,7 +6,7 @@ interface Label {
   description: string | null
 }
 
-import { getReadableTextColor } from '@/utils/color'
+import { getReadableTextColor } from '@/utils/readableTextColor'
 
 defineProps<{
   labels: Label[]
