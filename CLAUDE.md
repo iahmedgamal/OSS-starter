@@ -62,4 +62,21 @@ Strong success criteria let you loop independently. Weak criteria ("make it work
 
 ---
 
-**These guidelines are working if:** fewer unnecessary changes in diffs, fewer rewrites due to overcomplication, and clarifying questions come before implementation rather than after mistakes.
+**These guidelines are working if:** fewer unnecessary changes in diffs, fewer rewrites due to overcomplication, and clarifying questions come before implementation rather than after mistakes
+
+## CSS Styles
+
+This is not recomended (wrong)
+```css
+.total {
+  color: #f87171; -- wrong
+}
+```
+this is not acceptable at all, all the colors should be updated in the @/src/assets/base.css
+
+- this is fine
+```css
+.total {
+  color: var(--color-accent); -- correct
+}
+```

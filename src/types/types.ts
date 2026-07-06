@@ -13,14 +13,12 @@ export interface Issue {
   user: {
     login: string
     avatar_url: string
-  },
+  }
   body: string
+  repository_url: string
 }
 
 export interface IssuesResponse {
   total_count: number
   items: Issue[]
 }
-
-
-

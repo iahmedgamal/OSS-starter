@@ -1,21 +1,11 @@
 <script setup lang="ts">
 import Title from './Title.vue'
-
-withDefaults(
-  defineProps<{
-    bgColor?: string
-  }>(),
-  {
-    bgColor: 'var(--color-primary)',
-  },
-)
 </script>
 
 <template>
-  <header :style="{ backgroundColor: bgColor }">
+  <header>
     <div class="wrapper">
       <Title msg="OSS Starter" />
-
       <nav>
         <RouterLink to="/">Home</RouterLink>
         <RouterLink to="/about">About</RouterLink>
@@ -26,10 +16,15 @@ withDefaults(
 
 <style scoped>
 header {
-  height: 100px;
+  max-width: 760px;
+  margin: 0 auto;
+  padding: 20px 16px;
   display: flex;
   align-items: center;
+  border-bottom: 1px solid var(--color-accent-glow);
+  margin-bottom: 24px;
 }
+
 .wrapper {
   width: 100%;
   display: flex;
@@ -38,7 +33,6 @@ header {
 }
 
 nav {
-  margin-right: 10px;
   display: flex;
   gap: 8px;
 }
@@ -47,9 +41,10 @@ nav a {
   padding: 6px 14px;
   border-radius: 8px;
   border: 2px solid transparent;
-  text-decoration: none;
   color: var(--color-text);
-  transition: border-color 0.3s ease, box-shadow 0.3s ease;
+  transition:
+    border-color 0.3s ease,
+    box-shadow 0.3s ease;
 }
 
 nav a:hover {
@@ -58,8 +53,6 @@ nav a:hover {
 }
 
 nav a.router-link-exact-active {
-  border-color: transparent;
   border-left-color: var(--color-accent);
-  box-shadow: none;
 }
 </style>
