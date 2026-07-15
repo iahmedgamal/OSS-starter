@@ -1,46 +1,54 @@
 <script setup lang="ts">
+import { ref } from 'vue'
 import { useQuery } from '@tanstack/vue-query'
-import Labels from './Labels.vue'
+import IssueCard from './IssueCard.vue'
+import LanguageTabs from './LanguageTabs.vue'
 import { useRouter } from 'vue-router'
 import type { IssuesResponse } from '@/types/types.ts'
+import { resolveLanguage } from '@/utils/languages'
 
 const router = useRouter()
+const languages: string[] = JSON.parse(localStorage.getItem('oss_languages') || '[]')
+const selected = ref(languages[0] ?? '')
+
+function buildUrl(lang: string) {
+  const url = new URL('https://api.github.com/search/issues')
+  url.searchParams.set(
+    'q',
+    `is:issue is:open label:"good first issue" no:assignee language:${resolveLanguage(lang).toLowerCase()}`,
+  )
+  url.searchParams.set('sort', 'created')
+  url.searchParams.set('order', 'desc')
+  url.searchParams.set('per_page', '100')
+  return url.toString()
+}
+
 const { data, isLoading, error } = useQuery<IssuesResponse>({
-  queryKey: ['good-first-issues'],
-  queryFn: () =>
-    fetch(
-      'https://api.github.com/search/issues?q=is:issue+is:open+label:"good+first+issue"+no:assignee&sort=created&order=desc&per_page=100',
-    ).then((r) => r.json()),
+  queryKey: ['good-first-issues', selected],
+  queryFn: () => fetch(buildUrl(selected.value)).then((r) => r.json()),
   staleTime: 1000 * 60 * 5,
 })
 </script>
 
 <template>
+  <LanguageTabs :languages="languages" :selected="selected" @select="selected = $event" />
+
   <div v-if="isLoading" class="state">Loading...</div>
   <div v-if="error" class="state error">Failed to load issues.</div>
 
   <p v-if="data" class="total">{{ data.total_count.toLocaleString() }} open good first issues</p>
 
-  <div
-    class="card"
+  <IssueCard
     v-for="item in data?.items"
     :key="item.id"
+    :item="item"
     @click="
       router.push({ path: `/issue/${item.id}`, state: { issue: JSON.parse(JSON.stringify(item)) } })
     "
-  >
-    <div class="card-top">
-      <a :href="item.html_url" target="_blank" @click.stop class="repo">
-        {{ item.repository_url.replace('https://api.github.com/repos/', '') }} ↗
-      </a>
-      <img :src="item.user.avatar_url" :alt="item.user.login" />
-    </div>
-    <p class="title">{{ item.title }}</p>
-    <Labels :labels="item.labels" />
-  </div>
+  />
 </template>
 
-<style>
+<style scoped>
 .state {
   text-align: center;
   padding: 40px;
@@ -48,7 +56,7 @@ const { data, isLoading, error } = useQuery<IssuesResponse>({
 }
 
 .error {
-  color: #f87171;
+  color: var(--color-accent);
 }
 
 .total {
@@ -56,49 +64,5 @@ const { data, isLoading, error } = useQuery<IssuesResponse>({
   color: var(--color-accent);
   margin-bottom: 16px;
   opacity: 0.8;
-}
-
-.card {
-  display: flex;
-  flex-direction: column;
-  gap: 8px;
-  background-color: var(--color-primary);
-  padding: 16px;
-  margin-bottom: 12px;
-  border-radius: 12px;
-  cursor: pointer;
-  border: 1px solid transparent;
-  border-left: 3px solid var(--color-accent);
-  transition:
-    border-color 0.3s ease,
-    box-shadow 0.3s ease;
-}
-
-.card:hover {
-  border-color: var(--color-accent);
-  box-shadow: 0 0 16px var(--color-accent-glow);
-}
-
-.card-top {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-}
-
-.repo {
-  font-size: 0.75rem;
-  color: var(--color-accent);
-  opacity: 0.8;
-}
-
-.title {
-  font-size: 0.95rem;
-  line-height: 1.4;
-}
-
-img {
-  width: 28px;
-  height: 28px;
-  border-radius: 50%;
 }
 </style>

@@ -1,0 +1,1 @@
+Ask me which cuisine I want to generate an icon for, then use the skill file at `.claude/skills/icons/generate-cuisine.md` to generate the SVG icon following its guidelines.
