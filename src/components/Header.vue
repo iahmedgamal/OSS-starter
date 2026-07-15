@@ -8,6 +8,7 @@ import Title from './Title.vue'
       <Title msg="OSS Starter" />
       <nav>
         <RouterLink to="/">Home</RouterLink>
+        <RouterLink to="/languages">Languages</RouterLink>
         <RouterLink to="/about">About</RouterLink>
       </nav>
     </div>

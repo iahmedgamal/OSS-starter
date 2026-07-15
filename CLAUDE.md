@@ -2,6 +2,9 @@
 
 Behavioral guidelines to reduce common LLM coding mistakes. Merge with project-specific instructions as needed.
 
+## Files to ignore
+- `profile.md` — personal contributor profile, gitignored, never read or reference in responses unless explicitly asked
+
 **Tradeoff:** These guidelines bias toward caution over speed. For trivial tasks, use judgment.
 
 ## 1. Think Before Coding
@@ -95,3 +98,7 @@ it('returns light for light background colors', () => {
   expect(result).toBe('light')
 })
 ```
+
+## Lines of Code per page
+keep it simple 150 line should be enough, if we have more things to do add utility function 
+or think about spliting functions 

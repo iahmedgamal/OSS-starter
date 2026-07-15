@@ -37,3 +37,6 @@ __screenshots__/
 
 # Vite
 *.timestamp-*-*.mjs
+
+# Personal profile (use src/data/profile.example.md as template)
+src/data/profile.md
