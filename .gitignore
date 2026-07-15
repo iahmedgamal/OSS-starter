@@ -40,3 +40,10 @@ __screenshots__/
 
 # Personal profile (use src/data/profile.example.md as template)
 src/data/profile.md
+
+# Deployment notes (local only)
+DEPLOYMENT.md
+
+# Data files
+src/types/data.json
+src/data/profile.example.md
